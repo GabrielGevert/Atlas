@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import './Login.css';
 
@@ -15,15 +16,15 @@ function Home() {
             <div className="container-login">
                 <div className="wrap-login">
                     <form action="" className="login-form">
-                        <span className="login-form-title">
-                            <img src={Logo} alt="logo" />
-                        </span>
+                    <Link to="/"><span className="login-form-title">
+                         <img src={Logo} alt="logo" /> 
+                        </span></Link>
 
                         <div className="radio-input">
                             <input type="radio" id="tipo-cadastro_personal" value="0" name="tipo-cadastro" class="custom-control-input" />
                             <label class="custom-control-label" for="tipo-cadastro_personal">Personal</label>
 
-                            <input type="radio" id="tipo-cadastro_aluno" value="0" name="tipo-cadastro" class="custom-control-input " />
+                            <input type="radio" id="tipo-cadastro_aluno" value="0" name="tipo-cadastro" class="custom-control-input-2" />
                             <label class="custom-control-label" for="tipo-cadastro_aluno" >Aluno</label>
                         </div>
 
@@ -43,7 +44,7 @@ function Home() {
 
                         <div className="text-center">
                             <span className="txt1">Não possui conta?</span>
-                            <a href="#" className="txt2">Criar conta.</a>
+                            <Link to="/cadastro" className="txt2">Criar conta.</Link>
                         </div>
                     </form>
                 </div>

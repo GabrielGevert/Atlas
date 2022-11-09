@@ -192,8 +192,10 @@
 }
 
 .radio-input {
-    width: 100%;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
     margin-bottom: 37px;
 }
 .custom-control-label {
@@ -201,4 +203,32 @@
     margin-bottom: 0;
     vertical-align: top;
     font-size: 1.2rem!important;
+    
+    color: #adadad;
 }
+
+.custom-control-input {
+    margin-right: 10px;
+}
+
+.custom-control-input-2 {
+    margin-right: 7px;
+    margin-left: 65px;
+}
+
+input[type='radio']:after {
+    width: 10px;
+    height: 10px;
+    border-radius: 15px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    background-color: #ffa500;
+}
+
