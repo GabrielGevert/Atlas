@@ -7,7 +7,7 @@ import Logo from '../../assets/logo-a.png'
 import Back from '../../assets/leftArrow.png'
 import { useState } from 'react';
 
-function Home() {
+function Login() {
 
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
@@ -57,4 +57,4 @@ function Home() {
     )
 }
 
-export default Home
+export default Login

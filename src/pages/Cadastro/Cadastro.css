@@ -19,7 +19,7 @@
     margin: 0 auto;
 }
 
-.container-login {
+.container-cadastro {
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -31,7 +31,7 @@
     background-color: var(--appColor);
 }
 
-.wrap-login {
+.wrap-cadastro {
     width: 390px;
     background-color: #333;
     border-radius: 10px;
@@ -40,23 +40,29 @@
     box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
-.login-form {
+.cadastro-form {
     width: 100%;
 }
 
-.login-form-title {
+.cadastro-form-back {
+    position: absolute;
+    top: 2rem;
+    left: 41rem;
+    width: 1.5rem;
+    color: var(--orange);
+}
+
+.cadastro-form-title {
     display: block;
     font-size: 30px;
     color: azure;
     text-align: center;
-    margin-bottom: 30px;
 }
 
 .wrap-input {
     width: 100%;
     position: relative;
     border-bottom: 2px solid #adadad;
-    margin-bottom: 37px;
 }
 
 .input {
@@ -69,6 +75,7 @@
     height: 45px;
     padding: 0 5px;
     background-color: transparent;
+    z-index: 99;
 }
 
 .focus-input {
@@ -139,14 +146,14 @@
     width: 100%;
 }
 
-.container-login-form-btn {
+.container-cadastro-form-btn {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding-bottom: 13px;
 }
 
-.login-form-btn {
+.cadastro-form-btn {
     font-size: 15px;
     border: none;
     border-radius: 10px;
@@ -165,7 +172,7 @@
     background: linear-gradient(to left, #ca6e0a, #f48915);
 }
 
-.login-form-btn:hover {
+.cadastro-form-btn:hover {
     cursor: pointer;
 }
 
@@ -173,7 +180,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
+    margin-top: -5px
 }
 
 .txt1 {
@@ -197,6 +204,14 @@
     align-items: center;
     margin-top: 50px;
     margin-bottom: 37px;
+}
+
+.radio-input-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 30px;
 }
 .custom-control-label {
     position: relative;
@@ -230,5 +245,16 @@ input[type='radio']:after {
 
 input[type='radio']:checked:after {
     background-color: #ffa500;
+}
+
+.error {
+    
+    text-align: center;
+    color: #f75a45;
+    font-size: 15px;
+    font-style: bold;
+    z-index: 1;
+    margin-top: -15px;
+    
 }
 
