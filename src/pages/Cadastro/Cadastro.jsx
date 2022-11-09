@@ -1,10 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import './Login.css';
+import './Cadastro.css';
 
 import Logo from '../../assets/logo-a.png'
-import Back from '../../assets/leftArrow.png'
 import { useState } from 'react';
 
 function Home() {
@@ -16,13 +15,10 @@ function Home() {
         <div className='container'>
             <div className="container-login">
                 <div className="wrap-login">
-                    <Link to="/">
-                        <img src={Back} alt="" className="login-form-back" />
-                    </Link>
                     <form action="" className="login-form">
-                        <Link to="/">
-                            <span className="login-form-title"><img src={Logo} alt="logo" /></span>
-                        </Link>
+                    <Link to="/"><span className="login-form-title">
+                         <img src={Logo} alt="logo" /> 
+                        </span></Link>
 
                         <div className="radio-input">
                             <input type="radio" id="tipo-cadastro_personal" value="0" name="tipo-cadastro" class="custom-control-input" />

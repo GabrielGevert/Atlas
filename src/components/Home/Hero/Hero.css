@@ -134,7 +134,7 @@
     align-items: start;
     border-radius: 5px;
     position: absolute;
-    right: 9.5rem;
+    right: 7.3rem;
     top: 7rem;
 }
 
@@ -154,14 +154,14 @@
 .hero-image {
     position: absolute;
     top: 10rem;
-    right: 17rem;
+    right: 13.8rem;
     width: 23rem;
 }
 
 .hero-image-back {
     position: absolute;
     top: 4rem;
-    right: 28.3rem;
+    right: 25.3rem;
     z-index: -1;
     width: 15rem;
 }
@@ -175,7 +175,7 @@
     width: fit-content;
     position: absolute;
     top: 32rem;
-    right: 35rem;
+    right: 31.8rem;
 }
 
 .calories>img {
