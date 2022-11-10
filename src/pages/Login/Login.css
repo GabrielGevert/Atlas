@@ -46,8 +46,9 @@
 
 .login-form-back {
     position: absolute;
-    top: 12rem;
-    left: 41rem;
+    top: 22.2%;
+    /* left: 49rem; */
+    left: 40.85%;
     width: 1.5rem;
     color: var(--orange);
 }

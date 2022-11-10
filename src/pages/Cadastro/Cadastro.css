@@ -46,8 +46,9 @@
 
 .cadastro-form-back {
     position: absolute;
-    top: 2rem;
-    left: 41rem;
+    top: 6.9%;
+    /* left: 49rem; */
+    left: 40.85%;
     width: 1.5rem;
     color: var(--orange);
 }
