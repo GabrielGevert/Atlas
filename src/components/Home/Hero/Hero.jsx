@@ -5,9 +5,10 @@ import './Hero.css';
 import hero_image from "../../../assets/hero_image.png";
 import hero_image_back from "../../../assets/hero_image_back.png";
 import Heart from "../../../assets/heart.png";
-import Calories from "../../../assets/calories.png"
+import Calories from "../../../assets/calories.png";
+import NumberCounter from 'number-counter';
 
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 
 const Hero = () => {
 
@@ -42,15 +43,15 @@ const Hero = () => {
                 </div>
                 <div className="figures">
                     <div>
-                        <span>+30</span>
+                        <span><NumberCounter end={30} start={0} delay='3' preFix="+"></NumberCounter></span>
                         <span>Personais capacitados</span>
                     </div>
                     <div>
-                        <span>+931</span>
+                        <span><NumberCounter end={931} start={800} delay='3' preFix="+"></NumberCounter></span>
                         <span>Usuários conosco</span>
                     </div>
                     <div>
-                        <span>+50</span>
+                        <span><NumberCounter end={53} start={12} delay='3' preFix="+"></NumberCounter></span>
                         <span>Programas de treinamento</span>
                     </div>
                 </div>
