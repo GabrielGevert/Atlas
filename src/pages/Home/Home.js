@@ -6,6 +6,7 @@ import Hero from '../../components/Home/Hero/Hero';
 import Programs from '../../components/Home/Programs/Programs';
 import Reasons from '../../components/Home/Reasons/Reasons';
 import Plans from '../../components/Home/Plans/Plans';
+import Footer from '../../components/Home/Footer/Footer';
 
 function Home() {
     return (
@@ -14,6 +15,7 @@ function Home() {
             <Programs />
             <Reasons />
             <Plans />
+            <Footer />
         </div>
     )
 }
