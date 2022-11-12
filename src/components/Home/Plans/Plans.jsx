@@ -6,7 +6,7 @@ import './Plans.css'
 
 function Plans() {
     return (
-        <div className="plans-container">
+        <div className="plans-container" id="planos">
             <div className="blur plans-blur-1"></div>
             <div className="blur plans-blur-2"></div>
             <div className="programs-header">
