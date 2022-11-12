@@ -12,7 +12,6 @@ function Header() {
             <li>Programas</li>
             <li>Por que nós?</li>
             <li>Planos</li>
-            <li>Depoimentos</li>
         </ul>
     </div>
   )

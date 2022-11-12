@@ -14,6 +14,7 @@ function Login() {
 
     return (
         <div className='container'>
+            <div className="blur login-blur"></div>
             <div className="container-login">
                 <div className="wrap-login">
                     <Link to="/">

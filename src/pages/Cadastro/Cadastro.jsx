@@ -95,6 +95,7 @@ function Cadastro() {
     return (
         <div className='container'>
             <div className="container-cadastro">
+                <div className="blur cadastro-blur"></div>
                 <div className="wrap-cadastro">
                     <Link to="/">
                         <img src={Back} alt="" className="cadastro-form-back" ref={seta} />

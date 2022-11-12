@@ -38,6 +38,7 @@
     overflow: hidden;
     padding: 77px 55px 33px 55px;
     box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
 .login-form {
@@ -241,3 +242,17 @@ input[type='radio']:checked:after {
     background-color: #ffa500;
 }
 
+.blur {
+    background: rgba(253, 120, 43, 0.69);
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(212px);
+    /* z-index: -9; */
+  }
+.login-blur {
+    width: 22rem;
+    height: 30rem;
+    left: 38%;
+    top: 21%;
+    z-index: 1;
+}
