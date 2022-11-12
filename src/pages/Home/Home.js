@@ -5,6 +5,7 @@ import './Home.css';
 import Hero from '../../components/Home/Hero/Hero';
 import Programs from '../../components/Home/Programs/Programs';
 import Reasons from '../../components/Home/Reasons/Reasons';
+import Plans from '../../components/Home/Plans/Plans';
 
 function Home() {
     return (
@@ -12,6 +13,7 @@ function Home() {
             <Hero />
             <Programs />
             <Reasons />
+            <Plans />
         </div>
     )
 }
