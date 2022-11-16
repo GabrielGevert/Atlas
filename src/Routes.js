@@ -7,14 +7,12 @@ import Cadastro from './pages/Cadastro/Cadastro';
 
 
 export default () => {
-
     return (
-
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home/>}></Route>
-                <Route path="/login" element={<Login/>}></Route>
-                <Route path="/cadastro" element={<Cadastro/>}></Route>
+                <Route path="/" element={<Home />}></Route>
+                <Route path="/login" element={<Login />}></Route>
+                <Route path="/cadastro" element={<Cadastro />}></Route>
             </Routes>
         </BrowserRouter>
     );
