@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 
 
 import './TreinoAluno.css'
@@ -31,7 +31,8 @@ const TreinoAluno = () => {
                     sequencia: "3 x 12 - 30 segundos",
                 },
             ],
-            ultimoTreino: "17:30 - 14/11/22"
+            ultimoTreino: "17:30 - 14/11/22",
+            finalizado: false
 
         },
         {
@@ -48,19 +49,24 @@ const TreinoAluno = () => {
                     sequencia: "3 x 12 - 30 segundos",
                 },
             ],
-            ultimoTreino: "17:52 - 15/11/22"
+            ultimoTreino: "17:52 - 15/11/22",
+            finalizado: false
         },
     ];
 
-    const marcarTreinoButton = useRef(null)
+    const [lista, setLista] = useState(testMap);
 
-    const [active, setActive] = useState(false);
-
-    const marcarTreino = e => {
-
-        setActive(!active);
+    function marcarTreino (i) {
         
+        var listaAux = [...lista];
+
+        listaAux[i].finalizado =!listaAux[i].finalizado
+
+        setLista(listaAux)
     }
+
+        
+    
 
     function abrirMenu() {
         console.log("abrirmenu")
@@ -86,12 +92,12 @@ const TreinoAluno = () => {
                             <a href="#" className='sub-menu-link'>
                                 <img src={Settings} alt="" />
                                 <p>Editar perfil</p>
-                                <span>></span>
+                                
                             </a>
                             <a href="#" className='sub-menu-link'>
                                 <img src={Logout} alt="" />
                                 <p>Sair</p>
-                                <span>></span>
+                                
                             </a>
                         </div>
                     </div>
@@ -108,29 +114,29 @@ const TreinoAluno = () => {
                 </div>
             </div>
             <div className='treinos'>
-                {testMap.map((treinos, i) => (
+                {lista.map((treino, i) => (
                     <div className="card-treinos" key={i}>
-                        <button onClick={marcarTreino} value={i} className={active ? 'button-ok set-green' : 'button-ok'}>
+                        <button onClick={() => marcarTreino(i)} className={treino.finalizado  ? 'button-ok set-green' : 'button-ok'}>
                             <img src={Tick} alt="" />
-                            <span>{active ? "Treino feito" : "Marcar treino"}</span>
+                            <span>{treino.finalizado ? "Treino feito" : "Marcar treino"}</span>
                         </button>
                         <button className='button-ok imprime'>
                             <img src={Printer} alt="" />
                             <span>Imprimir</span>
                         </button>
                         <div className='card-treinos-first-text'>
-                            <span>Responsável pelo treino:</span><span>{treinos.responsavel}</span>
+                            <span>Responsável pelo treino:</span><span>{treino.responsavel}</span>
                         </div>
                         <div className='card-treinos-first-text mt'>
-                            <span>Nome do treino:</span><span>{treinos.nomeTreino}</span>
+                            <span>Nome do treino:</span><span>{treino.nomeTreino}</span>
                         </div>
                         <div className='card-treinos-first-text mt'>
-                            <span>Categoria:</span><span>{treinos.categoria}</span>
+                            <span>Categoria:</span><span>{treino.categoria}</span>
                         </div>
                         <div className='span-before-ex'>
                             <span>exercícios</span>
                         </div>
-                            {treinos.exercicios.map((exercicio, i) => (
+                            {treino.exercicios.map((exercicio, i) => (
                                 <div className="exercicios" key={i}>
                                     <span className='exercicios-titulo'>{exercicio.exercicioNome}</span>
                                     <span className='exercicios-subtitulo'>{exercicio.sequencia}</span>
@@ -139,7 +145,7 @@ const TreinoAluno = () => {
                             ))}
                             <div className='last-ex'>
                                 <span>Último treino: </span>
-                                <span>{treinos.ultimoTreino}</span>
+                                <span>{treino.ultimoTreino}</span>
                             </div>
                     </div>
                 ))}
