@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast';
 
 import './Login.css';
@@ -7,7 +7,6 @@ import './Login.css';
 import Logo from '../../assets/logo-a.png'
 import Back from '../../assets/leftArrow.png'
 import { useState } from 'react';
-import { useEffect } from 'react';
 import axios from 'axios';
 
 function Login() {
@@ -16,7 +15,15 @@ function Login() {
     const [senha, setSenha] = useState("")
     const [entidade, setEntidade] = useState("")
 
-    const notify = (campo, msg) => toast.error(msg || `preencha o campo ${campo}`);
+    const notify = (campo, msg, erro = true) => {
+        if (erro) {
+            toast.error(msg || `preencha o campo ${campo}`)
+        } else {
+            toast.success(msg)
+        }
+    }
+
+    let nav = useNavigate();
 
     const LoginOnClick = e => {
         e.preventDefault();
@@ -50,7 +57,14 @@ function Login() {
                 return
             }
 
+            notify(undefined, "Logado com sucesso!", false)
+
             window.sessionStorage.setItem("SID", res.data)
+
+            setTimeout(() => {
+                nav('/')
+            }, 1200);
+
 
         }).catch(err => {
             notify(undefined, "Usuário não encontrado")
