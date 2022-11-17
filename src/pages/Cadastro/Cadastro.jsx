@@ -1,6 +1,7 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast';
+import Select from 'react-select'
 
 import './Cadastro.css';
 
@@ -39,6 +40,8 @@ function Cadastro() {
         codigoConvite: ''
     })
 
+    const [acad, setAcad] = useState([])
+
     const onInputChange = e => {
         const { name, value } = e.target;
         setInput(prev => ({
@@ -51,6 +54,23 @@ function Cadastro() {
     const validateInput = e => {
 
     }
+
+    useEffect(() => {
+        const getAcad = async () => {
+            if (acad.length > 0)
+                return;
+
+            axios({
+                method: 'get',
+                url: "http://localhost:3001/academia",
+            })
+                .then(res => {
+                    setAcad(res.data);
+                })
+        }
+
+        getAcad()
+    }, [])
 
     const divCodigoPersonal = useRef(null)
     const seta = useRef(null)
@@ -72,18 +92,8 @@ function Cadastro() {
     }
 
     function Cadastrar(e) {
-        e.preventDefault();
-
-        if (!ValidarCampos())
-            return
-
-
-        if (input.tipo === "aluno") {
-
-        }
-
-        if (input.tipo === "personal") {
-            axios({
+        const cadPersonal = async () => {
+            await axios({
                 method: 'post',
                 url: "http://localhost:3001/cadastro/personal",
                 data: {
@@ -93,20 +103,61 @@ function Cadastro() {
                 }
             })
                 .then(res => {
-                    console.log();
                     notify(undefined, "Cadastrado com sucesso!", false);
 
                     window.sessionStorage.setItem("SID", res.data)
 
                     setTimeout(() => {
-                        //nav('/')
+                        nav('/')
                     }, 1200);
                 })
                 .catch(err => {
                     notify(undefined, err.response.data);
                 })
-
         }
+
+        const cadAluno = async () => {
+            await axios({
+                method: 'post',
+                url: "http://localhost:3001/cadastro/aluno",
+                data: {
+                    nome: input.nome,
+                    sobrenome: input.sobrenome,
+                    login: input.email,
+                    senha: input.senha,
+                    academia: input.academia,
+                    sexo: input.sexo
+                }
+            })
+                .then(res => {
+                    notify(undefined, "Cadastrado com sucesso!", false);
+
+                    window.sessionStorage.setItem("SID", res.data)
+
+                    setTimeout(() => {
+                        nav('/')
+                    }, 1200);
+                })
+                .catch(err => {
+                    notify(undefined, err.response.data);
+                })
+        }
+
+        e.preventDefault();
+
+        if (!ValidarCampos())
+            return
+
+
+        if (input.tipo === "aluno") {
+            cadAluno()
+        }
+
+        if (input.tipo === "personal") {
+            cadPersonal()
+        }
+
+       
     }
 
     function ValidarCampos() {
@@ -155,12 +206,25 @@ function Cadastro() {
             return false;
         }
 
+        if (input.tipo === "aluno" && !input.academia) {
+            notify("academia")
+            return false;
+        }
+
         if (input.tipo === "aluno" && !input.sexo) {
             notify("sexo")
             return false;
         }
 
+
         return true;
+    }
+
+    const SelectChange = (selected) => {
+        setInput(prev => ({
+            ...prev,
+            'academia': selected.value
+        }));
     }
 
     return (
@@ -234,6 +298,14 @@ function Cadastro() {
                                 <input className={input.codigoConvite !== "" ? 'has-val input' : 'input'} type="text" name="codigoConvite" id="codigoConvite" value={input.codigoConvite} onChange={onInputChange} onBlur={validateInput} />
                                 <span className="focus-input" data-placeholder='Código PERSONAL'></span>
                             </div>
+
+                            {
+                                input.tipo !== "personal" && (
+                                    <div className="wrap-input">
+                                        <Select options={acad} onChange={SelectChange} />
+                                    </div>
+                                )
+                            }
 
                             {
                                 input.tipo !== "personal" && (
