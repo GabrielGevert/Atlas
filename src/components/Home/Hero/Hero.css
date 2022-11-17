@@ -118,7 +118,24 @@
     width: 5rem;
     height: 1rem;
     border-radius: 0.5rem;
+    display: none;
 }
+
+.go-dashboard {
+    position: absolute;
+    right: 1rem;
+    top: 1.5rem;
+    z-index: 1;
+}
+
+
+.go-dashboard>:nth-child(1) {
+    width: 2.2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    fill: #fff;
+}
+
 .right-h>.btn:hover{
     background-color: #363d42;
     color: var(--orange);
