@@ -3,6 +3,8 @@
     min-height: 100vh;
     background: #eef1f5;
     color: #525252;
+    display: flex;
+    flex-direction: column;
 }
 
 nav {
@@ -188,6 +190,7 @@ hr {
 }
 
 .add-exercise {
+    align-self: center;
     display: flex;
     flex-direction: column;
     background-color: #fff;
@@ -201,6 +204,7 @@ hr {
     align-items: center;
     font-size: 2rem;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 
 .add-exercise:hover {
@@ -275,4 +279,10 @@ hr {
 .excluir-exercicio {
     color: #f75a45;
     cursor: pointer;
+}
+
+.right-span {
+    display: flex;
+    justify-content: end;
+    margin-top: -15px;
 }

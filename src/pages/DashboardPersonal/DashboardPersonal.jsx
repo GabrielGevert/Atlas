@@ -12,6 +12,9 @@ import Edit from '../../assets/edit.png'
 import Lixeira from '../../assets/lixeira.png'
 import Plus from '../../assets/plus.png'
 import Save from '../../assets/diskette.png'
+import LixeiraRed from '../../assets/lixeirared.png'
+
+import { createElement } from 'react'
 
 
 const DashboardPersonal = () => {
@@ -106,6 +109,16 @@ const DashboardPersonal = () => {
         newCard.classList.add('card-treinos')
         newCard.id = ("addTreino-" + contadorIdCard)
 
+        // first span card X
+        var newCardFirstSpan = document.createElement("span")
+        newCardFirstSpan.appendChild(document.createTextNode("x"))
+        newCardFirstSpan.classList.add('excluir-exercicio', 'right-span')
+        newCardFirstSpan.addEventListener('click', excluirCard)
+        // div for first span 
+
+        var newCardFirstText0 = document.createElement("div")
+        newCardFirstText0.classList.add('card-treinos-first-text-space', 'mt')
+
         // criando primeiro span - responsavel
         var newCardSpan1 = document.createElement("span")
         newCardSpan1.appendChild(document.createTextNode("Responsável pelo treino:"))
@@ -116,6 +129,8 @@ const DashboardPersonal = () => {
         newCardSpan2.appendChild(document.createTextNode("Usuário logado"))
 
         // criando primeira div para nome do treino
+
+        newCardFirstText0.append(newCardSpan1, newCardSpan2)
 
         var newCardFirstText = document.createElement("div")
         newCardFirstText.classList.add('card-treinos-first-text-space', 'mt')
@@ -244,7 +259,8 @@ const DashboardPersonal = () => {
         newCardButtonSave.classList.add('button-edit', 'save')
 
         var newCardButtonSaveImg = document.createElement("img")
-        newCardButtonSaveImg.src = ({Save})
+        let imagemSave = {Save}
+        newCardButtonSaveImg.src = imagemSave
 
         var newCardButtonSaveSpan = document.createElement("span")
         newCardButtonSaveSpan.appendChild(document.createTextNode("Salvar treino"))
@@ -259,7 +275,7 @@ const DashboardPersonal = () => {
         //
         newCardNewExercise.append(newCardNewExerciseFirst)
 
-        newCard.append(newCardSpan1, newCardSpan2, newCardFirstText, newCardSecondText, newCardExerciseText, newCardNewExercise, newCardButtonAddExercise, newCardButtonSave)
+        newCard.append(newCardFirstSpan, newCardFirstText0, newCardFirstText, newCardSecondText, newCardExerciseText, newCardNewExercise, newCardButtonAddExercise, newCardButtonSave)
 
         // Inserir a div no código
         var inserirCard = document.getElementById("addCard-1")
@@ -336,6 +352,18 @@ const DashboardPersonal = () => {
         var inserirDiv = document.getElementById("addDivExercicio-1")
 
         inserirDiv.appendChild(newExercise)
+    }
+
+    function excluirCard() {
+
+        var card = document.getElementById("addTreino-" + contadorIdCard)
+
+        card.parentNode.removeChild(card)
+
+        if (contadorIdCard > 0) {
+            contadorIdCard = contadorIdCard - 1
+        }
+
     }
 
     function excluirExercicio() {
@@ -432,6 +460,7 @@ const DashboardPersonal = () => {
                     </div>
                 ))}
                 <div className='card-treinos' id='addTreino-1'>
+                    <span onClick={excluirCard} title='Excluir esse card' className='excluir-exercicio right-span'>x</span>
                     <div className='card-treinos-first-text'>
                         <span>Responsável pelo treino:</span><span>Usuário logado</span>
                     </div>
@@ -464,11 +493,11 @@ const DashboardPersonal = () => {
                         <span>Salvar treino</span>
                     </button>
                 </div>
-                <div className='add-exercise'>
-                    <span>Adicionar treino</span>
-                    <img onClick={addCardTreino} className='plus-icon' src={Plus} alt="" />
-                </div>
             </div>
+            <div onClick={addCardTreino} className='add-exercise'>
+                    <span>Adicionar treino</span>
+                    <img  className='plus-icon' src={Plus} alt="" />
+                </div>
         </div>
 
 

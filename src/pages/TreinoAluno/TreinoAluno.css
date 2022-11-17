@@ -142,10 +142,10 @@ hr {
 
 .treinos {
     gap: 3rem;
-    display: flex;
+    display: grid;
     margin: 2%;
     align-items: center;
-    
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     
 }
 .card-treinos {
