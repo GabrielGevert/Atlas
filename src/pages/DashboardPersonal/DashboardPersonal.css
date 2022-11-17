@@ -5,7 +5,7 @@
     color: #525252;
 }
 
-.nav {
+nav {
     background: #1a1a1a;
     width: 100%;
     padding: 1rem;
@@ -14,6 +14,7 @@
     justify-content: space-between;
     position: relative;
 }
+
 .logo {
     width: 10rem;
 }
@@ -45,6 +46,7 @@
     padding: 20px;
     margin: 10px;
     z-index: 1;
+    border-radius: 1rem;
 }
 
 .user-info {
@@ -69,15 +71,6 @@ hr {
     width: 100%;
     background: #ccc;
     margin: 15px 0 10px;
-}
-
-.first-content {
-    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2);
-}
-
-.first-content>hr {
-    filter: opacity(50%);
-    width: 82%;
 }
 
 .sub-menu-link {
@@ -113,61 +106,54 @@ hr {
     font-weight: bold;
 }
 
-.first-content {
+.first-content-personal {
     margin: 2%;
     padding: 1rem;
     background-color: #fff;
     border-radius: 10px;
+    display: flex;
+    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2);
+    justify-content: space-between;
 }
 
-.first-content>:nth-child(1) {
+.first-content-personal-text {
+    width: 82%;
+}
+
+.first-content-personal-text>hr {
+    filter: opacity(50%);
+}
+
+.orange {
     color: var(--orange);
 }
 
-.first-content-text {
-    margin-top: 1%;
+.first-content-search {
     display: flex;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-}
-
-.first-content-text>:nth-child(1) {
-    font-weight: bold;
-}
-
-.first-content-text>:nth-child(3) {
-    margin-left: 20px;
-    font-weight: bold;
-}
-
-.treinos {
-    gap: 3rem;
-    display: flex;
-    margin: 2%;
-    align-items: center;
-    
-    
-}
-.card-treinos {
-    margin-top: -10px;
-    display: flex;
-    gap: 1rem;
     flex-direction: column;
-    background: #fff;
-    width: 20rem;
-    padding: 1.5rem;
-    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    justify-content: center;
+    
 }
 
-.button-ok {
+.first-content-personal-first-text {
+    display: flex;
+    margin-top: 1%;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+}
+
+.first-content-personal-first-text>:nth-child(1) {
+    font-weight: bold;
+}
+
+.button-edit {
     padding: 1rem;
     display: flex;
     align-items: center;
     width: 100%;
     height: 2.5rem;
     gap: 10px;
-    background: #333333;
+    background: #6567e6;
     color: white;
     border: none;
     border-radius: 5px;
@@ -176,17 +162,68 @@ hr {
     cursor: pointer;
 }
 
-.button-ok>img {
+.button-add-label {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 1rem;
+    gap: 10px;
+    background: #6567e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.button-edit>img {
     width: 1.2rem;
     z-index: 1;
 }
 
-.imprime {
-    background: #d6d6d6;
-    color: black;
+.exclude {
+    background: #f75a45;
 }
 
-.card-treinos-first-text {
+.add-exercise {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    gap: 1rem;
+    width: 20rem;
+    padding: 1.5rem;
+    height: 15rem;
+    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.add-exercise:hover {
+    background-color: #a1eba4;
+    cursor: pointer;
+    color: #fff;
+}
+
+.plus-icon {
+    margin-top: 10%;
+    width: 30%;
+}
+
+.input-add {
+    margin-top: 10px;
+}
+.input-align {
+    margin-top: -5px;
+    padding: 2px;
+}
+
+.card-treinos-first-text-space {
+    justify-content: space-between;
     margin-top: 1%;
     display: flex;
     gap: 0.3rem;
@@ -194,48 +231,48 @@ hr {
     margin-left: -3px;
 }
 
-.card-treinos-first-text>:nth-child(1) {
+.card-treinos-first-text-space>:nth-child(1) {
     font-weight: bold;
 }
 
-.mt {
-    margin-top: -10px;
+.first-exercicio>input {
+    width: 100%;
 }
 
-.span-before-ex {
+.exercicios-titulo-input {
+    color: #525252;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.second-exercicio {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    height: 22px;
+}
+
+.exercicios-subtitulo-input {
+    color: #525252;
+    font-size: 12px;
+}
+
+.second-exercicio>:nth-child(1) {
+    min-width: 18%;
     text-align: center;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-top: 10px;
 }
 
-.exercicios {
-    gap: 5px;
+.adicionando-exercicios {
+    gap: 1rem;
     display: flex;
     flex-direction: column;
-    font-size: 18px;
 }
 
-.exercicios-titulo{
-    font-weight: bold;
+.save {
+    background-color: #5cb15e;
 }
 
-.exercicios-subtitulo {
-    font-size: 15px;
-}
-
-.set-green {
-    background-color: #53e286;
-}
-
-.last-ex {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.last-ex>:nth-child(1) {
-    font-weight: bold;
+.excluir-exercicio {
+    color: #f75a45;
+    cursor: pointer;
 }

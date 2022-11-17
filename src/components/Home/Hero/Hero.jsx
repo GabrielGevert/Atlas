@@ -8,9 +8,20 @@ import Heart from "../../../assets/heart.png";
 import Calories from "../../../assets/calories.png";
 import NumberCounter from 'number-counter';
 
+import User from '../../../assets/user.png'
+import UserBlack from '../../../assets/user2.png'
+import Halter from '../../../assets/haltere.png'
+import Settings from '../../../assets/setting.png'
+import Logout from '../../../assets/logout.png'
+
 import { motion } from 'framer-motion';
 
 const Hero = () => {
+
+    function abrirMenu() {
+        console.log("abrirmenu")
+        document.getElementById("subMenu").classList.toggle("open-menu")
+    }
 
     const transition = { type: 'spring', duration: 3 }
     return (
@@ -63,6 +74,36 @@ const Hero = () => {
             </div>
             <div className="right-h">
                 <Link to="/login" className="btn">Entrar</Link>
+                <div className="go-dashboard">
+                    <img onClick={abrirMenu} src={User} alt="" className='user' />
+                    <div className="sub-menu-wrap" id='subMenu'>
+                        <div className="sub-menu">
+                            <div className="user-info">
+                                <img src={UserBlack} alt="" />
+                                <h2>Nome</h2>
+                            </div>
+                            <hr></hr>
+
+                            <a href="/dashboard/aluno" className='sub-menu-link'>
+                                <img src={Halter} alt="" />
+                                <p>Ver meus treinos</p>
+
+                            </a>
+
+                            <a href="#" className='sub-menu-link'>
+                                <img src={Settings} alt="" />
+                                <p>Editar perfil</p>
+
+                            </a>
+                            <a href="#" className='sub-menu-link'>
+                                <img src={Logout} alt="" />
+                                <p>Sair</p>
+
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
                 <motion.div
                     initial={{ right: "-1rem" }}
                     whileInView={{ right: "4rem" }}
@@ -74,17 +115,17 @@ const Hero = () => {
                 </motion.div>
                 <img src={hero_image} alt="" className="hero-image" />
                 <motion.img
-                initial={{ right: '11rem' }}
-                whileInView={{ right: '25rem' }}
-                transition={transition}
-                src={hero_image_back} alt="" className="hero-image-back" />
+                    initial={{ right: '11rem' }}
+                    whileInView={{ right: '25rem' }}
+                    transition={transition}
+                    src={hero_image_back} alt="" className="hero-image-back" />
                 <motion.div
-                initial={{ right: "37rem" }}
-                whileInView={{ right: "32rem" }}
-                transition={transition}
-                className="calories">
+                    initial={{ right: "37rem" }}
+                    whileInView={{ right: "32rem" }}
+                    transition={transition}
+                    className="calories">
                     <img src={Calories} alt="" />
-                <div>
+                    <div>
                         <span>Calorias Eliminidas</span>
                         <span>270 kcal</span>
                     </div>
