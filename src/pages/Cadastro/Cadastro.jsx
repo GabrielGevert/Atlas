@@ -108,7 +108,7 @@ function Cadastro() {
                     window.sessionStorage.setItem("SID", res.data)
 
                     setTimeout(() => {
-                        nav('/')
+                        nav('/dashboard/personal')
                     }, 1200);
                 })
                 .catch(err => {
@@ -135,7 +135,7 @@ function Cadastro() {
                     window.sessionStorage.setItem("SID", res.data)
 
                     setTimeout(() => {
-                        nav('/')
+                        nav('/dashboard/aluno')
                     }, 1200);
                 })
                 .catch(err => {

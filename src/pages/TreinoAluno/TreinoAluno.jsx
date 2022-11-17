@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 import './TreinoAluno.css'
@@ -9,64 +9,86 @@ import Settings from '../../assets/setting.png'
 import Logout from '../../assets/logout.png'
 import Tick from '../../assets/tick2.png'
 import Printer from '../../assets/printer.png'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const TreinoAluno = () => {
+    let nav = useNavigate();
 
-    let user = "Jorge lucas"
-    let objetivo = "Malhar pra pegar mulher"
-    let restante = "5"
+        // {
+        //     responsavel: "Gabriel Gevert",
+        //     nomeTreino: "Hipertrofia",
+        //     categoria: "Perna",
+        //     exercicios: [
+        //         {
+        //             exercicioNome: "Abdutor",
+        //             sequencia: "3 x 12 - 30 segundos",
+        //         },
+        //         {
+        //             exercicioNome: "Extensor",
+        //             sequencia: "3 x 12 - 30 segundos",
+        //         },
+        //     ],
+        //     ultimoTreino: "17:30 - 14/11/22",
+        //     finalizado: false
 
-    const testMap = [
-        {
-            responsavel: "Gabriel Gevert",
-            nomeTreino: "Hipertrofia",
-            categoria: "Perna",
-            exercicios: [
-                {
-                    exercicioNome: "Abdutor",
-                    sequencia: "3 x 12 - 30 segundos",
-                },
-                {
-                    exercicioNome: "Extensor",
-                    sequencia: "3 x 12 - 30 segundos",
-                },
-            ],
-            ultimoTreino: "17:30 - 14/11/22",
-            finalizado: false
+        // },
 
-        },
-        {
-            responsavel: "Gabriel Gevert",
-            nomeTreino: "Hipertrofia",
-            categoria: "Peito - Biceps",
-            exercicios: [
-                {
-                    exercicioNome: "Supino",
-                    sequencia: "3 x 12 - 30 segundos",
-                },
-                {
-                    exercicioNome: "Desenv Halter",
-                    sequencia: "3 x 12 - 30 segundos",
-                },
-            ],
-            ultimoTreino: "17:52 - 15/11/22",
-            finalizado: false
-        },
-    ];
+    const [user, setUser] = useState(null);
+    const [lista, setLista] = useState([]);
 
-    const [lista, setLista] = useState(testMap);
+    useEffect(() => {
+        var sid = window.sessionStorage.getItem("SID")
+        if (!sid) {
+            nav("/")
+            return
+        }
 
-    function marcarTreino (i) {
-        
+        const GetTreinos = async () => {
+            axios({
+                method: 'get',
+                url: "http://localhost:3001/treinos",
+                params: {
+                    sid
+                }
+            })
+                .then(res => {
+                    setLista(res.data);
+                }).catch(err => {
+                    nav("/")
+                })
+        }
+
+        const GetUser = async () => {
+            await axios({
+                method: 'get',
+                url: "http://localhost:3001/user",
+                params: {
+                    sid
+                }
+            })
+                .then(res => {
+                    setUser(res.data)
+                })
+        }
+
+        if (!!user) return;
+        GetUser()
+        GetTreinos();
+
+    }, [])
+
+    function marcarTreino(i) {
+
         var listaAux = [...lista];
 
-        listaAux[i].finalizado =!listaAux[i].finalizado
+        listaAux[i].finalizado = !listaAux[i].finalizado
 
         setLista(listaAux)
     }
 
-        
-    
+
+
 
     function abrirMenu() {
         console.log("abrirmenu")
@@ -85,38 +107,38 @@ const TreinoAluno = () => {
                         <div className="sub-menu">
                             <div className="user-info">
                                 <img src={UserBlack} alt="" />
-                                <h2>{user}</h2>
+                                <h2>{user && user.nome}</h2>
                             </div>
                             <hr></hr>
 
                             <a href="#" className='sub-menu-link'>
                                 <img src={Settings} alt="" />
                                 <p>Editar perfil</p>
-                                
+
                             </a>
                             <a href="#" className='sub-menu-link'>
                                 <img src={Logout} alt="" />
                                 <p>Sair</p>
-                                
+
                             </a>
                         </div>
                     </div>
                 </nav>
             </div>
             <div className='first-content'>
-                <h1>{user}</h1>
+                <h1>{user && user.nome}</h1>
                 <hr></hr>
                 <div className='first-content-text'>
                     <span>Objetivo do aluno:</span>
-                    <span>{objetivo}</span>
+                    <span>{user && user.objetivo}</span>
                     <span>Semanas restantes:</span>
-                    <span>{restante}</span>
+                    <span></span>
                 </div>
             </div>
             <div className='treinos'>
                 {lista.map((treino, i) => (
                     <div className="card-treinos" key={i}>
-                        <button onClick={() => marcarTreino(i)} className={treino.finalizado  ? 'button-ok set-green' : 'button-ok'}>
+                        <button onClick={() => marcarTreino(i)} className={treino.finalizado ? 'button-ok set-green' : 'button-ok'}>
                             <img src={Tick} alt="" />
                             <span>{treino.finalizado ? "Treino feito" : "Marcar treino"}</span>
                         </button>
@@ -136,22 +158,22 @@ const TreinoAluno = () => {
                         <div className='span-before-ex'>
                             <span>exercícios</span>
                         </div>
-                            {treino.exercicios.map((exercicio, i) => (
-                                <div className="exercicios" key={i}>
-                                    <span className='exercicios-titulo'>{exercicio.exercicioNome}</span>
-                                    <span className='exercicios-subtitulo'>{exercicio.sequencia}</span>
-                                    <hr></hr>
-                                </div> 
-                            ))}
-                            <div className='last-ex'>
-                                <span>Último treino: </span>
-                                <span>{treino.ultimoTreino}</span>
+                        {treino.exercicios.map((exercicio, i) => (
+                            <div className="exercicios" key={i}>
+                                <span className='exercicios-titulo'>{exercicio.exercicioNome}</span>
+                                <span className='exercicios-subtitulo'>{exercicio.sequencia}</span>
+                                <hr></hr>
                             </div>
+                        ))}
+                        <div className='last-ex'>
+                            <span>Último treino: </span>
+                            <span>{treino.ultimoTreino}</span>
+                        </div>
                     </div>
                 ))}
             </div>
         </div>
-        
+
 
     )
 }

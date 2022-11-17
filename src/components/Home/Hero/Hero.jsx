@@ -15,11 +15,38 @@ import Settings from '../../../assets/setting.png'
 import Logout from '../../../assets/logout.png'
 
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 
 const Hero = () => {
 
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        if (!!user) return;
+
+        const sid = window.sessionStorage.getItem("SID")
+        if (!sid) return;
+
+        const GetUser = async () => {
+            await axios({
+                method: 'get',
+                url: "http://localhost:3001/user",
+                params: {
+                    sid
+                }
+            })
+                .then(res => {
+                    setUser(res.data)
+                })
+        }
+
+        GetUser()
+
+    }, [])
+
     function abrirMenu() {
-        console.log("abrirmenu")
         document.getElementById("subMenu").classList.toggle("open-menu")
     }
 
@@ -73,14 +100,13 @@ const Hero = () => {
                 </div>
             </div>
             <div className="right-h">
-                <Link to="/login" className="btn">Entrar</Link>
-                <div className="go-dashboard">
+                {user && (<div className="go-dashboard">
                     <img onClick={abrirMenu} src={User} alt="" className='user' />
                     <div className="sub-menu-wrap" id='subMenu'>
                         <div className="sub-menu">
                             <div className="user-info">
                                 <img src={UserBlack} alt="" />
-                                <h2>Nome</h2>
+                                <h2>{user.nome}</h2>
                             </div>
                             <hr></hr>
 
@@ -102,7 +128,10 @@ const Hero = () => {
                             </a>
                         </div>
                     </div>
-                </div>
+                </div>)}
+                {!user && (<Link to="/login" className="btn">Entrar</Link>)}
+                
+
 
                 <motion.div
                     initial={{ right: "-1rem" }}

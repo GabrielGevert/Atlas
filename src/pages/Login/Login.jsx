@@ -56,13 +56,15 @@ function Login() {
                 notify(undefined, "Usuário não encontrado")
                 return
             }
-
             notify(undefined, "Logado com sucesso!", false)
 
             window.sessionStorage.setItem("SID", res.data)
 
             setTimeout(() => {
-                nav('/')
+                if (entidade === 'personal')
+                    nav('/dashboard/personal')
+                else
+                    nav('/dashboard/aluno')
             }, 1200);
 
 
