@@ -9,9 +9,7 @@ import DashboardPersonal from './pages/DashboardPersonal/DashboardPersonal';
 
 
 export default () => {
-
     return (
-
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home/>}></Route>
