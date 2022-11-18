@@ -15,48 +15,49 @@ import axios from 'axios'
 const TreinoAluno = () => {
     let nav = useNavigate();
 
-        // {
-        //     responsavel: "Gabriel Gevert",
-        //     nomeTreino: "Hipertrofia",
-        //     categoria: "Perna",
-        //     exercicios: [
-        //         {
-        //             exercicioNome: "Abdutor",
-        //             sequencia: "3 x 12 - 30 segundos",
-        //         },
-        //         {
-        //             exercicioNome: "Extensor",
-        //             sequencia: "3 x 12 - 30 segundos",
-        //         },
-        //     ],
-        //     ultimoTreino: "17:30 - 14/11/22",
-        //     finalizado: false
+    // {
+    //     responsavel: "Gabriel Gevert",
+    //     nomeTreino: "Hipertrofia",
+    //aluno:123
+    //     categoria: "Perna",
+    //     exercicios: [
+    //         {
+    //             exercicioNome: "Abdutor",
+    //             sequencia: "3 x 12 - 30 segundos",
+    //         },
+    //         {
+    //             exercicioNome: "Extensor",
+    //             sequencia: "3 x 12 - 30 segundos",
+    //         },
+    //     ],
+    //     ultimoTreino: "17:30 - 14/11/22",
+    //     finalizado: false
 
-        // },
+    // },
 
     const [user, setUser] = useState(null);
     const [lista, setLista] = useState([]);
+    const GetTreinos = async (sid) => {
+        axios({
+            method: 'get',
+            url: "http://localhost:3001/treinos",
+            params: {
+                sid
+            }
+        })
+            .then(res => {
+                console.log(res.data);
+                setLista(res.data);
+            }).catch(err => {
+                nav("/")
+            })
+    }
 
     useEffect(() => {
         var sid = window.sessionStorage.getItem("SID")
         if (!sid) {
             nav("/")
             return
-        }
-
-        const GetTreinos = async () => {
-            axios({
-                method: 'get',
-                url: "http://localhost:3001/treinos",
-                params: {
-                    sid
-                }
-            })
-                .then(res => {
-                    setLista(res.data);
-                }).catch(err => {
-                    nav("/")
-                })
         }
 
         const GetUser = async () => {
@@ -74,17 +75,24 @@ const TreinoAluno = () => {
 
         if (!!user) return;
         GetUser()
-        GetTreinos();
+        GetTreinos(sid);
 
     }, [])
 
-    function marcarTreino(i) {
+    async function marcarTreino(_id, finalizado) {
+        console.log(123);
+        await axios({
+            method: 'post',
+            url: "http://localhost:3001/finalizado",
+            data: {
+                _id,
+                finalizado
+            }
+        }).then((res)=>{
+            var sid = window.sessionStorage.getItem("SID")
+            GetTreinos(sid)
+        })
 
-        var listaAux = [...lista];
-
-        listaAux[i].finalizado = !listaAux[i].finalizado
-
-        setLista(listaAux)
     }
 
 
@@ -132,13 +140,14 @@ const TreinoAluno = () => {
                     <span>Objetivo do aluno:</span>
                     <span>{user && user.objetivo}</span>
                     <span>Semanas restantes:</span>
-                    <span></span>
+                    <span>5</span>
                 </div>
             </div>
             <div className='treinos'>
                 {lista.map((treino, i) => (
                     <div className="card-treinos" key={i}>
-                        <button onClick={() => marcarTreino(i)} className={treino.finalizado ? 'button-ok set-green' : 'button-ok'}>
+                        {console.log(treino.finalizado)}
+                        <button onClick={() => marcarTreino(treino._id.toString(), treino.finalizado)} className={treino.finalizado ? 'button-ok set-green' : 'button-ok'}>
                             <img src={Tick} alt="" />
                             <span>{treino.finalizado ? "Treino feito" : "Marcar treino"}</span>
                         </button>
@@ -147,7 +156,7 @@ const TreinoAluno = () => {
                             <span>Imprimir</span>
                         </button>
                         <div className='card-treinos-first-text'>
-                            <span>Responsável pelo treino:</span><span>{treino.responsavel}</span>
+                            <span>Responsável pelo treino:</span><span>{treino.rs[0].nome}</span>
                         </div>
                         <div className='card-treinos-first-text mt'>
                             <span>Nome do treino:</span><span>{treino.nomeTreino}</span>

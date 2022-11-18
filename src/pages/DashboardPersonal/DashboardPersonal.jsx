@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 
 
 
@@ -12,54 +12,14 @@ import Edit from '../../assets/edit.png'
 import Lixeira from '../../assets/lixeira.png'
 import Plus from '../../assets/plus.png'
 import Save from '../../assets/diskette.png'
-
+import Select from 'react-select'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const DashboardPersonal = () => {
+    let nav = useNavigate();
 
-
-
-    let user = "Judite Jefferson"
-    let academia = "Atlas CENTRO"
-
-    const testMap = [
-        {
-            responsavel: "Judite Jefferson",
-            nomeTreino: "Hipertrofia",
-            categoria: "Perna",
-            exercicios: [
-                {
-                    exercicioNome: "Abdutor",
-                    sequencia: "3 x 12 - 30 segundos",
-                },
-                {
-                    exercicioNome: "Extensor",
-                    sequencia: "3 x 12 - 30 segundos",
-                },
-            ],
-            ultimoTreino: "17:30 - 14/11/22",
-            finalizado: false
-
-        },
-        {
-            responsavel: "Judite Jefferson",
-            nomeTreino: "Hipertrofia",
-            categoria: "Peito - Biceps",
-            exercicios: [
-                {
-                    exercicioNome: "Supino",
-                    sequencia: "3 x 12 - 30 segundos",
-                },
-                {
-                    exercicioNome: "Desenv Halter",
-                    sequencia: "3 x 12 - 30 segundos",
-                },
-            ],
-            ultimoTreino: "17:52 - 15/11/22",
-            finalizado: false
-        },
-    ];
-
-    const [lista, setLista] = useState(testMap);
+    const [lista, setLista] = useState([]);
 
     function marcarTreino(i) {
 
@@ -73,27 +33,9 @@ const DashboardPersonal = () => {
     const testInput = useRef(null)
 
     function abrirMenu() {
-        console.log("abrirmenu")
         document.getElementById("subMenu").classList.toggle("open-menu")
     }
-    //            
-    //                     
-    //                         
-    //                         <div className="first-exercicio">
-    //                             <input id='exercicioTreinoExercicio-1' placeholder='Exercicio' className='exercicios-titulo-input'></input>
-    //                         </div>
-    //                         <div className='second-exercicio'>
-    //                             <input id='serieTreinoExercicio-1' placeholder='Série' className='exercicios-subtitulo-input'></input>
-    //                             <input id='descansoTreinoExercicio-1' placeholder='Tempo de descanso' className='exercicios-subtitulo-input'></input>
-    //                         </div>
-    //                     </div>
-    //                 </div> 
-    //                 <button onClick={addTreinoLabel} className='button-add-label'>Adicionar + 1 Exercicío</button>
-    //                 <button className="button-edit save">
-    //                         <img src={Save} alt="" />
-    //                         <span>Salvar treino</span>
-    //                     </button>
-    //             </div>
+
     let contadorIdCard = 1
 
     const addCardTreino = () => {
@@ -244,7 +186,7 @@ const DashboardPersonal = () => {
         newCardButtonSave.classList.add('button-edit', 'save')
 
         var newCardButtonSaveImg = document.createElement("img")
-        newCardButtonSaveImg.src = ({Save})
+        newCardButtonSaveImg.src = ({ Save })
 
         var newCardButtonSaveSpan = document.createElement("span")
         newCardButtonSaveSpan.appendChild(document.createTextNode("Salvar treino"))
@@ -266,24 +208,6 @@ const DashboardPersonal = () => {
 
         inserirCard.appendChild(newCard)
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /////////////////////////
-
 
     let contadorIdAddLabel = 1
 
@@ -348,9 +272,94 @@ const DashboardPersonal = () => {
             contadorIdAddLabel = contadorIdAddLabel - 1
         }
 
-
-
     }
+    const [alunos, setAlunos] = useState([]);
+    const [aluno, setAluno] = useState(null);
+
+    const SelectChange = (selected) => {
+        const GetTreinos = async () => {
+            axios({
+                method: 'get',
+                url: "http://localhost:3001/treinos",
+                params: {
+                    sid: selected.value
+                }
+            })
+                .then(res => {
+                    setLista(res.data);
+                }).catch(err => {
+                    nav("/")
+                })
+        }
+
+        const GetUser = async () => {
+            await axios({
+                method: 'get',
+                url: "http://localhost:3001/user",
+                params: {
+                    sid: selected.value
+                }
+            })
+                .then(res => {
+                    setAluno(res.data)
+                })
+        }
+
+        GetTreinos()
+        GetUser()
+    }
+
+
+    const [user, setUser] = useState(null);
+    useEffect(() => {
+        var sid = window.sessionStorage.getItem("SID")
+        if (!sid) {
+            nav("/")
+            return
+        }
+
+        const GetUser = async () => {
+            await axios({
+                method: 'get',
+                url: "http://localhost:3001/user",
+                params: {
+                    sid
+                }
+            })
+                .then(res => {
+                    console.log(res.data);
+                    if(res.data.tipo !== 'personal'){
+                        nav('/')
+                        return
+                    }
+                    setUser(res.data)
+                })
+        }
+
+        if (!!user) return;
+        GetUser()
+
+        const getalunos = async () => {
+            await axios({
+                method: 'get',
+                url: "http://localhost:3001/usuarios",
+            })
+                .then(res => {
+                    setAlunos(res.data)
+                })
+                .catch(err => {
+                    notify(undefined, err.response.data);
+                })
+        }
+
+
+        if (alunos.length === 0) {
+            getalunos()
+        }
+
+
+    }, [])
+
 
     return (
 
@@ -364,7 +373,7 @@ const DashboardPersonal = () => {
                         <div className="sub-menu">
                             <div className="user-info">
                                 <img src={UserBlack} alt="" />
-                                <h2>{user}</h2>
+                                <h2>{user && user.nome}</h2>
                             </div>
                             <hr></hr>
 
@@ -384,18 +393,20 @@ const DashboardPersonal = () => {
             </div>
             <div className='first-content-personal'>
                 <div className='first-content-personal-text'>
-                    <h1 className='orange'>{user}</h1>
+                    <h1 className='orange'>{user && user.nome}</h1>
                     <hr></hr>
                     <div className='first-content-personal-first-text'>
                         <span>Academia:</span>
-                        <span>{academia}</span>
+                        <span>{aluno && aluno.rs[0].nome}</span>
                     </div>
                 </div>
                 <div className="first-content-search">
                     <span>Selecione um cliente:</span>
+                    <Select options={alunos} onChange={SelectChange} />
                 </div>
             </div>
             <div className="treinos" id="addCard-1">
+                {console.log(lista)}
                 {lista.map((treino, i) => (
                     <div className="card-treinos" id={"card-treino-" + i} key={i}>
                         <button className="button-edit">
